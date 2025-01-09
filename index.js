@@ -743,10 +743,15 @@ function createPanZoom(domElement, options) {
     var l = Math.sqrt(dx * dx + dy * dy);
     if (l > 5) return; // probably they are panning, ignore it
 
-    pendingClickEventTimeout = setTimeout(function () {
+    if (zoomDoubleClickSpeed === 1) {
       pendingClickEventTimeout = 0;
       options.onClick(e);
-    }, doubleTapSpeedInMS);
+    } else {
+      pendingClickEventTimeout = setTimeout(function () {
+        pendingClickEventTimeout = 0;
+        options.onClick(e);
+      }, doubleTapSpeedInMS);
+    }
   }
 
   function handleTouchEnd(e) {

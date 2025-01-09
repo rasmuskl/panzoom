@@ -1140,19 +1140,27 @@ autoRun();
 module.exports = kinetic;
 
 function kinetic(getPoint, scroll, settings) {
-  if (typeof settings !== 'object') {
+  if (typeof settings !== "object") {
     // setting could come as boolean, we should ignore it, and use an object.
     settings = {};
   }
 
-  var minVelocity = typeof settings.minVelocity === 'number' ? settings.minVelocity : 5;
-  var amplitude = typeof settings.amplitude === 'number' ? settings.amplitude : 0.25;
-  var cancelAnimationFrame = typeof settings.cancelAnimationFrame === 'function' ? settings.cancelAnimationFrame : getCancelAnimationFrame();
-  var requestAnimationFrame = typeof settings.requestAnimationFrame === 'function' ? settings.requestAnimationFrame : getRequestAnimationFrame();
+  var minVelocity =
+    typeof settings.minVelocity === "number" ? settings.minVelocity : 5;
+  var amplitude =
+    typeof settings.amplitude === "number" ? settings.amplitude : 0.25;
+  var cancelAnimationFrame =
+    typeof settings.cancelAnimationFrame === "function"
+      ? settings.cancelAnimationFrame
+      : getCancelAnimationFrame();
+  var requestAnimationFrame =
+    typeof settings.requestAnimationFrame === "function"
+      ? settings.requestAnimationFrame
+      : getRequestAnimationFrame();
 
   var lastPoint;
   var timestamp;
-  var timeConstant = 342;
+  var timeConstant = 150;
 
   var ticker;
   var vx, targetX, ax;
@@ -1163,7 +1171,7 @@ function kinetic(getPoint, scroll, settings) {
   return {
     start: start,
     stop: stop,
-    cancel: dispose
+    cancel: dispose,
   };
 
   function dispose() {
@@ -1259,17 +1267,18 @@ function kinetic(getPoint, scroll, settings) {
 }
 
 function getCancelAnimationFrame() {
-  if (typeof cancelAnimationFrame === 'function') return cancelAnimationFrame;
+  if (typeof cancelAnimationFrame === "function") return cancelAnimationFrame;
   return clearTimeout;
 }
 
 function getRequestAnimationFrame() {
-  if (typeof requestAnimationFrame === 'function') return requestAnimationFrame;
+  if (typeof requestAnimationFrame === "function") return requestAnimationFrame;
 
   return function (handler) {
     return setTimeout(handler, 16);
   };
 }
+
 },{}],3:[function(require,module,exports){
 module.exports = makeDomController;
 
